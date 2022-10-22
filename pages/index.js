@@ -18,25 +18,20 @@ export default function Home() {
         </h1>
 
         <div className={styles.grid}>
-          <Link href="/posts/music" className={styles.card}>
-            <a>Music &rarr;</a>
-            </Link>
+          <Link href="/posts/music" className={styles.card}/>
+            <h2>Music &rarr;</h2>
 
-          <Link href="/posts/geography" className={styles.card}>
-            <a>Geography &rarr;</a>
-            </Link>
+          <Link href="/posts/geography" className={styles.card}/>
+            <h2>Geography &rarr;</h2>
 
-          <Link href="/posts/history" className={styles.card}>
-            <a>History &rarr;</a>
-            </Link>
+          <Link href="/posts/history" className={styles.card}/>
+            <h2>History &rarr;</h2>
 
-          <Link href="/posts/general" className={styles.card}>
-            <a>General &rarr;</a>
-            </Link>
+          <Link href="/posts/general" className={styles.card}/>
+            <h2>General &rarr;</h2>
 
-          <Link href="/posts/setting" className={styles.card}>
-            <a>Settings &rarr;</a>
-            </Link>
+          <Link href="/posts/setting" className={styles.card}/>
+            <h2>Settings &rarr;</h2>
             
         </div>
       </main>
