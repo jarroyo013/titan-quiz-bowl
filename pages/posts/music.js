@@ -7,6 +7,7 @@ export default function Music() {
   const [showResults, setShowResults] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
+  const [playerTurn, setCurrentPlayer] = useState(0);
 
   const questions = [
     {
@@ -100,19 +101,27 @@ export default function Music() {
       ],
     },
   ];
-
   const optionClicked = (isCorrect) => {
     // Increment the score
-    if (isCorrect) {
+    if (isCorrect && currentQuestion + 1 < questions.length) {
+      let correct = new Audio ("/New Recording 13.m4a");
+      correct.play();
+      setTimeout(function() {
       setScore(score + 1);
-    }
-
-    if (currentQuestion + 1 < questions.length) {
       setCurrentQuestion(currentQuestion + 1);
-    } else {
+      }, 3000);
+    }
+    else if (!isCorrect) {
+      let myAudio = new Audio ("/New-Recording-12.mp3");
+      myAudio.play();
+      setCurrentPlayer(playerTurn + 1);
+      setCurrentQuestion(currentQuestion);
+    }
+      else {
       setShowResults(true);
     }
   };
+
 
   /* Resets the game back to default */
   const restartGame = () => {
@@ -128,6 +137,7 @@ export default function Music() {
       MusicQuestions
       </h1>
       {/* 3. Show results or show the question game  */}
+      player1score: {score} <center>player2score: {score}</center>
       {showResults ? (
         /* 4. Final Results */
         <div className="final-results">
@@ -143,10 +153,11 @@ export default function Music() {
         <main className={styles.main}>
          <div className={styles.grid}>
           {/* Current Question  */}
-          <h2>
+          <h1>
             Question: {currentQuestion + 1} out of {questions.length}
-          </h2>
-          <h2>{questions[currentQuestion].text}</h2>
+          </h1>
+
+          <h1>{questions[currentQuestion].text}</h1>
 
           {/* List of possible answers  */}
             {questions[currentQuestion].options.map((option) => {
