@@ -1,9 +1,10 @@
 
 import React, { useState } from "react";
 import styles from '../../styles/Home.module.css'
+import ConfettiGenerator from 'confetti-js'
 
 export default function Music() {
-      
+
   const [showResults, setShowResults] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
@@ -106,6 +107,7 @@ export default function Music() {
     if (isCorrect && currentQuestion + 1 < questions.length) {
       let correct = new Audio ("/New Recording 13.m4a");
       correct.play();
+
       setTimeout(function() {
       setScore(score + 1);
       setCurrentQuestion(currentQuestion + 1);
@@ -121,6 +123,7 @@ export default function Music() {
       setShowResults(true);
     }
   };
+
 
 
   /* Resets the game back to default */
