@@ -107,6 +107,7 @@ export default function Music() {
     if (isCorrect && currentQuestion + 1 < questions.length) {
       let correct = new Audio ("/New Recording 13.m4a");
       correct.play();
+      
 
       setTimeout(function() {
       setScore(score + 1);
