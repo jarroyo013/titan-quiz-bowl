@@ -102,28 +102,44 @@ export default function Music() {
       ],
     },
   ];
-  const optionClicked = (isCorrect) => {
+
+var timeLeft = 3;
+var timerId = setInterval(countdown, 1000);
+
+function countdown() {
+    if (timeLeft == -1) {
+        clearTimeout(timerId);
+        doSomething();
+    } 
+    else{
+      timeLeft--;
+    }
+}
+
+function doSomething() {
+    alert("Time's up");
+}
+
+  function optionClicked(isCorrect) {
     // Increment the score
     if (isCorrect && currentQuestion + 1 < questions.length) {
-      let correct = new Audio ("/New Recording 13.m4a");
+      let correct = new Audio("/New Recording 13.m4a");
       correct.play();
-      
-
-      setTimeout(function() {
-      setScore(score + 1);
-      setCurrentQuestion(currentQuestion + 1);
+      setTimeout(function () {
+        setScore(score + 1);
+        setCurrentQuestion(currentQuestion + 1);
       }, 3000);
     }
     else if (!isCorrect) {
-      let myAudio = new Audio ("/New-Recording-12.mp3");
+      let myAudio = new Audio("/New-Recording-12.mp3");
       myAudio.play();
       setCurrentPlayer(playerTurn + 1);
       setCurrentQuestion(currentQuestion);
     }
-      else {
+    else {
       setShowResults(true);
     }
-  };
+  }
 
 
 
