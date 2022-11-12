@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import styles from '../../styles/Home.module.css'
 import ConfettiGenerator from 'confetti-js'
+import Router from 'next/router'
 
 export default function Music() {
 
@@ -102,44 +103,28 @@ export default function Music() {
       ],
     },
   ];
-
-var timeLeft = 3;
-var timerId = setInterval(countdown, 1000);
-
-function countdown() {
-    if (timeLeft == -1) {
-        clearTimeout(timerId);
-        doSomething();
-    } 
-    else{
-      timeLeft--;
-    }
-}
-
-function doSomething() {
-    alert("Time's up");
-}
-
-  function optionClicked(isCorrect) {
+  const optionClicked = (isCorrect) => {
     // Increment the score
     if (isCorrect && currentQuestion + 1 < questions.length) {
-      let correct = new Audio("/New Recording 13.m4a");
+      let correct = new Audio ("/New Recording 13.m4a");
       correct.play();
-      setTimeout(function () {
-        setScore(score + 1);
-        setCurrentQuestion(currentQuestion + 1);
+      
+
+      setTimeout(function() {
+      setScore(score + 1);
+      setCurrentQuestion(currentQuestion + 1);
       }, 3000);
     }
     else if (!isCorrect) {
-      let myAudio = new Audio("/New-Recording-12.mp3");
+      let myAudio = new Audio ("/New-Recording-12.mp3");
       myAudio.play();
       setCurrentPlayer(playerTurn + 1);
       setCurrentQuestion(currentQuestion);
     }
-    else {
+      else {
       setShowResults(true);
     }
-  }
+  };
 
 
 
@@ -154,7 +139,7 @@ function doSomething() {
     <div className="App">
       {/* 1. Header  */}
       <h1 className={styles.title}>
-      MusicQuestions
+      Music Questions
       </h1>
       {/* 3. Show results or show the question game  */}
       player1score: {score} <center>player2score: {score}</center>
@@ -177,24 +162,5 @@ function doSomething() {
             Question: {currentQuestion + 1} out of {questions.length}
           </h1>
 
-          <h1>{questions[currentQuestion].text}</h1>
-
-          {/* List of possible answers  */}
-            {questions[currentQuestion].options.map((option) => {
-              return (
-
-                <a className={styles.card}
-                  key={option.Answer}
-                  onClick={() => optionClicked(option.isCorrect)}
-                >
-                  {option.text}
-                </a>
-              );
-            })}
-        </div>
-        </main>
-      )}
-    </div>
-  );
-}
+ 
 
