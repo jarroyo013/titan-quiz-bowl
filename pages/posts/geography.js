@@ -5,12 +5,10 @@ import Router from 'next/router'
 import React, { useState } from "react";
 
 export default function Geography() {
-  const [showResults, setShowResults] = useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [score, setScore] = useState(0);
-  const [playerOneScore, setScoreOne] = useState(0);
-  const [playerTwoScore, setScoreTwo] = useState(0);
-  const [playerTurn, setCurrentPlayer] = useState(0);
+    const [showResults, setShowResults] = useState(false);
+    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [score, setScore] = useState(0);
+    const [playerTurn, setCurrentPlayer] = useState(0);
   
     const questions = [
       {
@@ -104,42 +102,28 @@ export default function Geography() {
         ],
       },
     ];
-
     const optionClicked = (isCorrect) => {
-    if (isCorrect && currentQuestion < questions.length) {
-      let correct = new Audio("/New Recording 13.m4a");
-      correct.play();
-
-      setTimeout(function () {
-        if (playerTurn % 2 == 0) {
-          setScoreOne(playerOneScore + 1);
-        } else {
-          setScoreTwo(playerTwoScore + 1);
-        }
-
+      // Increment the score
+      if (isCorrect && currentQuestion + 1 < questions.length) {
+        let correct = new Audio ("/New Recording 13.m4a");
+        correct.play();
+        
+  
+        setTimeout(function() {
         setScore(score + 1);
-        setCurrentPlayer(playerTurn + 1);
-
         setCurrentQuestion(currentQuestion + 1);
-      }, 3000);
-      if(currentQuestion==questions.length){
+        }, 3000);
+      }
+      else if (!isCorrect) {
+        let myAudio = new Audio ("/New-Recording-12.mp3");
+        myAudio.play();
+        setCurrentPlayer(playerTurn + 1);
+        setCurrentQuestion(currentQuestion);
+      }
+        else {
         setShowResults(true);
       }
-    } else if (!isCorrect) {
-      let myAudio = new Audio("/New-Recording-12.mp3");
-      myAudio.play();
-      setCurrentPlayer(playerTurn + 1);
-      setCurrentQuestion(currentQuestion);
-    }
-
-    if(playerTurn%2==1){
-      document.getElementById("player1score").style.backgroundColor = "red"
-      document.getElementById("player2score").style.backgroundColor = "black"
-    } else{
-      document.getElementById("player2score").style.backgroundColor = "red"
-      document.getElementById("player1score").style.backgroundColor = "black"
-    }
-  };
+    };
   
   
   
@@ -157,23 +141,14 @@ export default function Geography() {
         Geography Questions
         </h1>
         {/* 3. Show results or show the question game  */}
-        <div id="player1score" style={{ backgroundColor: 'red', color: 'white'}}>
-        player1score: {playerOneScore}{" "}
-      </div>
-      <div id="player2score" style={{ backgroundColor: 'black', color: 'white'}}>
-        player2score: {playerTwoScore}
-      </div>
-        {currentQuestion==10 ? (
+        player1score: {score} <center>player2score: {score}</center>
+        {showResults ? (
           /* 4. Final Results */
           <div className="final-results">
             <h1>Final Results</h1>
-            <h2> Player One: 
-              {playerOneScore} out of {questions.length} correct - (
-              {(playerOneScore / questions.length) * 100}%)
-            </h2>
-            <h2> Player Two: 
-              {playerTwoScore} out of {questions.length} correct - (
-              {(playerTwoScore / questions.length) * 100}%)
+            <h2>
+              {score} out of {questions.length} correct - (
+              {(score / questions.length) * 100}%)
             </h2>
             <button onClick={() => restartGame()}>Restart game</button>
           </div>
@@ -185,7 +160,7 @@ export default function Geography() {
             <h1>
               Question: {currentQuestion + 1} out of {questions.length}
             </h1>
-            <br/>
+  
             <h1>{questions[currentQuestion].text}</h1>
   
             {/* List of possible answers  */}
@@ -218,5 +193,5 @@ export default function Geography() {
       </footer>
       </div>
     );
-}
+            }
   
